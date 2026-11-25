@@ -43,7 +43,7 @@
   /* hero */
   .hero { min-height: calc(100svh - 5rem); display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: clamp(3rem, 10vh, 7rem); pointer-events: none; text-shadow: 0 0 18px #000, 0 0 6px #000; }
   .hero a { pointer-events: auto; }
-  .hero h1 { font-size: clamp(3.5rem, 13vw, 11.5rem); font-weight: 800; font-stretch: 75%; line-height: .86; letter-spacing: -.035em; }
+  .hero h1 { font-size: clamp(3.2rem, 11.5vw, 11rem); font-weight: 800; font-stretch: 100%; line-height: .9; letter-spacing: -.03em; }
   .hero h1 span { display: block; }
   .hero h1 span + span { padding-left: clamp(2rem, 12vw, 10rem); }
   .hero .lede { margin-top: 2.5rem; max-width: 36ch; font-size: clamp(1.25rem, 2.2vw, 1.6rem); line-height: 1.35; }
@@ -53,7 +53,7 @@
 
   /* sections */
   section { padding: clamp(4rem, 12vh, 7.5rem) 0; border-top: 1px solid var(--line); background: rgba(0,0,0,.8); }
-  section > .wrap > h2, .split > h2 { font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 700; font-stretch: 85%; letter-spacing: -.02em; line-height: 1; }
+  section > .wrap > h2, .split > h2 { font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 700; font-stretch: 100%; letter-spacing: -.02em; line-height: 1; }
   .split { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 2rem 3rem; }
   .split > h2 { position: sticky; top: 2rem; align-self: start; }
   @media (max-width: 860px) { .split { grid-template-columns: minmax(0, 1fr); } .split > h2 { position: static; } }
@@ -142,7 +142,7 @@
   /* education */
   .edu { display: grid; gap: 2rem; }
   .grades { display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; margin-top: 1rem; }
-  .grade b { display: block; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; font-stretch: 85%; line-height: 1.1; }
+  .grade b { display: block; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; font-stretch: 100%; line-height: 1.1; }
   .grade span { color: var(--muted); font-size: .95rem; }
 
   /* skills */
@@ -172,7 +172,7 @@
   .plain-list li { padding: .3rem 0; }
 
   /* contact */
-  .contact .big { font-size: clamp(1.5rem, 5.2vw, 4rem); font-weight: 700; font-stretch: 80%; letter-spacing: -.025em; line-height: 1.05; word-break: break-word; }
+  .contact .big { font-size: clamp(1.5rem, 5.2vw, 4rem); font-weight: 700; font-stretch: 100%; letter-spacing: -.025em; line-height: 1.05; word-break: break-word; }
   .contact .intro { max-width: var(--measure); margin-bottom: 1.5rem; font-size: 1.3rem; }
   .contact ul { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 2.5rem; }
   .contact ul a { display: inline-flex; align-items: center; gap: .5rem; }
