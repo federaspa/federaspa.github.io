@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work, Federico Raspanti</title>
+<meta name="description" content="Experience, education and toolkit of Federico Raspanti.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=4">
+</head>
+<body class="p-work">
+<canvas id="net" aria-hidden="true"></canvas>
+
+<!-- Icon set: simple line icons drawn for this site -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-logic" viewBox="0 0 24 24"><path d="M4 7h5M4 12h3M4 17h5"/><path d="M12 4l8 8-8 8"/><circle cx="12" cy="12" r="1.2"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15z"/><path d="M5 19l8-8"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7M8 11h7"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/><path d="M22 9v5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M7 15l4-4 3 3 5-6"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7 15h10"/></symbol>
+    <symbol id="i-antenna" viewBox="0 0 24 24"><path d="M12 10v11M8 21h8"/><circle cx="12" cy="8" r="2"/><path d="M8 4a6 6 0 0 0 0 8M16 4a6 6 0 0 1 0 8M5 2a10 10 0 0 0 0 12M19 2a10 10 0 0 1 0 12"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19.5 10 4 4 0 0 1 18 18z"/></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M7 4v16M17 4v16M3 8h4M3 12h4M3 16h4M17 8h4M17 12h4M17 16h4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 7l3 3.5M7 17l3-3.5M14 10.5L17 7M14 13.5l3 3.5"/></symbol>
+    <symbol id="i-grammar" viewBox="0 0 24 24"><path d="M8 4H6a2 2 0 0 0-2 2v4l-2 2 2 2v4a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v4l2 2-2 2v4a2 2 0 0 1-2 2h-2"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24"><path d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M2 20c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><circle cx="15" cy="6" r="2"/><path d="M6 11l4-3 3 2"/></symbol>
+    <symbol id="i-guitar" viewBox="0 0 24 24"><path d="M20 4l-7 7"/><path d="M18 2l4 4"/><path d="M11 9a4 4 0 0 0-4 1c-1 1-1 2-3 2.5S1 15 3 18s5.5 3 6.5 1 1.5-2 2.5-3a4 4 0 0 0 1-4"/><circle cx="8.5" cy="15.5" r="1.3"/></symbol>
+    <symbol id="i-puzzle" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></symbol>
+    <symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v5h5M9 13h7M9 17h7"/></symbol>
+    <symbol id="i-teach" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="12" rx="1"/><path d="M12 15v3M8 21l4-3 4 3M7 8h6M7 11h9"/></symbol>
+    <symbol id="i-languages" viewBox="0 0 24 24"><path d="M3 5h10M8 3v2M5 5c1 4 4 7 8 8M11 5c-1 4-4 7-8 8"/><path d="M13 21l4-9 4 9M14.5 18h5"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html">fr</a>
+    <nav aria-label="Pages">
+      <ul>
+        <li class="c-research"><a href="research.html">Research</a></li>
+        <li class="c-work"><a href="work.html" aria-current="page">Work</a></li>
+        <li class="c-homelab"><a href="homelab.html">Homelab</a></li>
+        <li class="c-life"><a href="life.html">Life</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="CV.pdf">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap page-head">
+    <h1>Work</h1>
+    <p>Language model systems that run on-premise and hold up to regulators, and the research and data work that led there.</p>
+  </div>
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap split">
+      <h2>Experience</h2>
+      <div>
+
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-scale"/></svg></span>
+            <div>
+              <p class="when">2025 to now</p>
+              <h3>Analyst, Data Science at Prometeia</h3>
+              <p class="sub">Milan. Prometeia is an Italian consultancy and software company for banks, insurers and asset managers.</p>
+              <p class="summary-text">I build language model systems that have to run inside clients' own infrastructure and hold up to regulators.</p>
+              <details class="more">
+                <summary><span class="when-closed">What I work on</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <h4>Neuro-symbolic compliance checking (since September 2026)</h4>
+                  <p>Prometeia's first neuro-symbolic project. The goal is auditable compliance checking against regulations.</p>
+
+                  <h4>On-premise document analysis</h4>
+                  <p>A pipeline that extracts key figures from a large, steady stream of documents in near real time. Client regulations meant no data could leave their infrastructure, so it runs entirely on-premise. I chose small models for latency and to fit the hardware available. It reaches 90% accuracy on the figures it extracts.</p>
+
+                  <h4>Greench-v1</h4>
+                  <p>The greenwashing screener described under Research. I owned the GRPO reward design and the evaluation, and wrote a large part of the paper.</p>
+
+                  <h4>Credit-model explainer (small contribution)</h4>
+                  <p>A retrieval-augmented chatbot that explains what credit-model indicators mean, in business and mathematical terms, to commercial teams and clients.</p>
+
+                  <h4>Company seminar on neuro-symbolic AI (2025)</h4>
+                  <p>I gave a company-wide seminar on what neuro-symbolic AI is and where it's useful in practice, which helped make the case for the project above.</p>
+                  <ul class="tags"><li>GRPO</li><li>RAG</li><li>On-premise deployment</li></ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-flask"/></svg></span>
+            <div>
+              <p class="when">2024 to 2025</p>
+              <h3>Doctoral Researcher at Eindhoven University of Technology</h3>
+              <p class="sub">Eindhoven, Netherlands</p>
+              <p class="summary-text">A year of research on making LLMs reliable parsers for symbolic solvers, which became the ACL 2025 paper. I then moved to industry.</p>
+              <details class="more">
+                <summary><span class="when-closed">What I did</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <ul>
+                    <li>Ran the grammar-constrained decoding study: 13 open models, two datasets, three prompting settings, with repeated runs (see Research).</li>
+                    <li>Helped teach the Machine Learning for Industry course.</li>
+                    <li>Started a survey on constrained generation, now in revision.</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-antenna"/></svg></span>
+            <div>
+              <p class="when">2024</p>
+              <h3>Automated Document Analysis Intern at Philips</h3>
+              <p class="sub">Eindhoven, Netherlands</p>
+              <p class="summary-text">An LLM pipeline that read 3GPP specifications, the standards behind mobile networks, and suggested improvements to them. Standards reviewers accepted 15% of its suggestions.</p>
+              <details class="more">
+                <summary><span class="when-closed">How it worked</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <p>3GPP specifications are long, dense technical documents. The pipeline took a specification and used the state-of-the-art GPT models of the time to fill in a structured improvement template for each proposed change. It was built for Philips' intellectual property and patents team, as a way to surface candidate contributions faster than reading every spec by hand.</p>
+                  <p>On a dozen specifications, 15% of the suggestions were accepted by standards reviewers.</p>
+                  <ul class="tags"><li>GPT</li><li>Prompt engineering</li><li>Structured generation</li><li>Python</li></ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-cloud"/></svg></span>
+            <div>
+              <p class="when">2023 to 2024</p>
+              <h3>Freelance Data Engineer for Monash University</h3>
+              <p class="sub">Melbourne, Australia (remote)</p>
+              <p class="summary-text">An AWS pipeline that read around 100,000 company financial documents and turned them into one clean dataset, for research on whether South Africa's Broad-Based Black Economic Empowerment (B-BBEE) policies worked.</p>
+              <details class="more">
+                <summary><span class="when-closed">How it worked</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <p>B-BBEE is South Africa's policy framework for encouraging Black employment. The researchers I supported wanted to measure whether it worked, and the evidence was in about 100,000 financial documents about companies. My job was to turn that pile of documents into a single, consistent dataset they could analyse.</p>
+                  <figure>
+                    <svg class="diagram" viewBox="0 0 760 110" role="img" aria-label="Documents in S3 trigger Lambda functions, which call Textract; results are cleaned and normalised into a consistent dataset.">
+                      <rect class="box" x="2" y="30" width="130" height="56" rx="6"/><text x="67" y="54" text-anchor="middle">~100k docs</text><text x="67" y="72" text-anchor="middle" class="small">S3</text>
+                      <path class="arrow" d="M132 58H166"/>
+                      <rect class="box" x="170" y="30" width="120" height="56" rx="6"/><text x="230" y="54" text-anchor="middle">Lambda</text><text x="230" y="72" text-anchor="middle" class="small">orchestration</text>
+                      <path class="arrow" d="M290 58H324"/>
+                      <rect class="box hot" x="328" y="30" width="120" height="56" rx="6"/><text x="388" y="54" text-anchor="middle">Textract</text><text x="388" y="72" text-anchor="middle" class="small">OCR, tables</text>
+                      <path class="arrow" d="M448 58H482"/>
+                      <rect class="box" x="486" y="30" width="130" height="56" rx="6"/><text x="551" y="54" text-anchor="middle">Clean and</text><text x="551" y="72" text-anchor="middle">normalise</text>
+                      <path class="arrow hot" d="M616 58H650"/>
+                      <rect class="box" x="654" y="30" width="102" height="56" rx="6"/><text x="705" y="63" text-anchor="middle">Dataset</text>
+                    </svg>
+                  </figure>
+                  <p>Before settling on AWS, I also experimented with Google Cloud's Document AI.</p>
+                  <ul class="tags"><li>AWS Textract</li><li>AWS Lambda</li><li>Amazon S3</li><li>Google Document AI</li><li>Python</li></ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-film"/></svg></span>
+            <div>
+              <p class="when">2023</p>
+              <h3>Computer Vision Intern at INRIA</h3>
+              <p class="sub">Nice, France</p>
+              <p class="summary-text">A short internship testing whether computer vision models could follow characters through film scenes, across cuts and shot changes, for <a href="https://webcms.i3s.unice.fr/TRACTIVE/home">TRACTIVE</a>, a research project on how women are represented in film.</p>
+              <details class="more">
+                <summary><span class="when-closed">More</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <p>To measure representation, for example how much screen time each character gets and how they're framed, you first need to know who is on screen, frame by frame. I tested YOLOv8 for detecting and tracking characters. Films are hard for trackers, which tend to assume continuous motion, because every cut breaks that assumption.</p>
+                  <ul class="tags"><li>YOLOv8</li><li>Object tracking</li><li>PyTorch</li></ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap split">
+      <h2>Education</h2>
+      <div class="edu">
+        <div>
+          <p class="when">2022 to 2024</p>
+          <h3 style="font-size:1.45rem">MSc in Data Science and Artificial Intelligence, with honours</h3>
+          <p class="sub">EIT Digital Master School, a double degree: first year at Polytech Nice Sophia (Université Côte d'Azur), second year at Eindhoven University of Technology</p>
+          <div class="grades">
+            <div class="grade"><b>16.79/20</b><span>First-year average in Nice, "Très bien"</span></div>
+            <div class="grade"><b>8.16/10</b><span>Course average in Eindhoven</span></div>
+            <div class="grade"><b>9/10</b><span>Thesis</span></div>
+          </div>
+          <p class="muted" style="margin-top:1rem; max-width:var(--measure)">Courses included computer vision and machine learning, text mining and NLP, shallow to deep learning, big data technologies, modelling and optimisation, and process mining, alongside innovation and entrepreneurship.</p>
+        </div>
+        <div>
+          <p class="when">2019 to 2022</p>
+          <h3 style="font-size:1.45rem">BSc in Economics, Management and Computer Science</h3>
+          <p class="sub">Bocconi University, Milan</p>
+          <div class="grades"><div class="grade"><b>104/110</b><span>Final grade</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap split">
+      <h2>Toolkit</h2>
+      <dl class="skills">
+        <div><svg class="icon"><use href="#i-chip"/></svg><div><dt>Small language models</dt><dd>Knowledge distillation (hard and soft), GRPO, supervised fine-tuning, evaluation across model scales, on-premise deployment</dd></div></div>
+        <div><svg class="icon"><use href="#i-grammar"/></svg><div><dt>Constrained generation</dt><dd>Grammar-constrained decoding with GBNF, syntactic and semantic control</dd></div></div>
+        <div><svg class="icon"><use href="#i-logic"/></svg><div><dt>Neuro-symbolic AI</dt><dd>Logical parsing, theorem provers and solvers (Prover9, Clingo, SymPy), ontologies, RAG</dd></div></div>
+        <div><svg class="icon"><use href="#i-network"/></svg><div><dt>Frameworks</dt><dd>PyTorch, Hugging Face, vLLM, llama.cpp, LangChain, OpenAI and Azure APIs</dd></div></div>
+        <div><svg class="icon"><use href="#i-db"/></svg><div><dt>Data and cloud</dt><dd>AWS (Textract, Lambda, S3), Google Document AI, OCR pipelines, Docker</dd></div></div>
+        <div><svg class="icon"><use href="#i-teach"/></svg><div><dt>Communication</dt><dd>Paper writing, teaching (Machine Learning for Industry), company-wide seminars</dd></div></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Federico Raspanti, Milan. <a href="mailto:federico.raspanti2000@gmail.com">federico.raspanti2000@gmail.com</a></span>
+    <span id="foot-note">The network behind this page has 0 trainable parameters. It's still learning from you.</span>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=4"></script>
+</body>
+</html>

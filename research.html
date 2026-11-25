@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research, Federico Raspanti</title>
+<meta name="description" content="Papers on grammar-constrained decoding and small language models, with an interactive demo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=4">
+</head>
+<body class="p-research">
+<canvas id="net" aria-hidden="true"></canvas>
+
+<!-- Icon set: simple line icons drawn for this site -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-logic" viewBox="0 0 24 24"><path d="M4 7h5M4 12h3M4 17h5"/><path d="M12 4l8 8-8 8"/><circle cx="12" cy="12" r="1.2"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15z"/><path d="M5 19l8-8"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7M8 11h7"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/><path d="M22 9v5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M7 15l4-4 3 3 5-6"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7 15h10"/></symbol>
+    <symbol id="i-antenna" viewBox="0 0 24 24"><path d="M12 10v11M8 21h8"/><circle cx="12" cy="8" r="2"/><path d="M8 4a6 6 0 0 0 0 8M16 4a6 6 0 0 1 0 8M5 2a10 10 0 0 0 0 12M19 2a10 10 0 0 1 0 12"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 1-9.9A6 6 0 0 1 19.5 10 4 4 0 0 1 18 18z"/></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M7 4v16M17 4v16M3 8h4M3 12h4M3 16h4M17 8h4M17 12h4M17 16h4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 7l3 3.5M7 17l3-3.5M14 10.5L17 7M14 13.5l3 3.5"/></symbol>
+    <symbol id="i-grammar" viewBox="0 0 24 24"><path d="M8 4H6a2 2 0 0 0-2 2v4l-2 2 2 2v4a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v4l2 2-2 2v4a2 2 0 0 1-2 2h-2"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24"><path d="M2 15c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2M2 20c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2"/><circle cx="15" cy="6" r="2"/><path d="M6 11l4-3 3 2"/></symbol>
+    <symbol id="i-guitar" viewBox="0 0 24 24"><path d="M20 4l-7 7"/><path d="M18 2l4 4"/><path d="M11 9a4 4 0 0 0-4 1c-1 1-1 2-3 2.5S1 15 3 18s5.5 3 6.5 1 1.5-2 2.5-3a4 4 0 0 0 1-4"/><circle cx="8.5" cy="15.5" r="1.3"/></symbol>
+    <symbol id="i-puzzle" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></symbol>
+    <symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.5"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01M11 7.5h6M11 16.5h6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v5h5M9 13h7M9 17h7"/></symbol>
+    <symbol id="i-teach" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="12" rx="1"/><path d="M12 15v3M8 21l4-3 4 3M7 8h6M7 11h9"/></symbol>
+    <symbol id="i-languages" viewBox="0 0 24 24"><path d="M3 5h10M8 3v2M5 5c1 4 4 7 8 8M11 5c-1 4-4 7-8 8"/><path d="M13 21l4-9 4 9M14.5 18h5"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="index.html">fr</a>
+    <nav aria-label="Pages">
+      <ul>
+        <li class="c-research"><a href="research.html" aria-current="page">Research</a></li>
+        <li class="c-work"><a href="work.html">Work</a></li>
+        <li class="c-homelab"><a href="homelab.html">Homelab</a></li>
+        <li class="c-life"><a href="life.html">Life</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="CV.pdf">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap page-head">
+    <h1>Research</h1>
+    <p>Making language models reliable enough for formal reasoning: grammars, solvers and small models.</p>
+  </div>
+  <!-- DEMO -->
+  <section id="demo">
+    <div class="wrap">
+      <h2>Watch a grammar keep a small model honest</h2>
+      <p class="muted" style="margin-top:1rem; max-width:var(--measure)">A small model translates a problem into a program, and a solver runs it. Generate once with the grammar on, then switch it off and try again. At each step you can see the model's top candidate tokens, and which ones the grammar rules out.</p>
+      <div class="demo" id="gcd-demo">
+        <div class="demo-controls">
+          <div class="seg" role="group" aria-label="Problem">
+            <button type="button" data-puzzle="logic" aria-pressed="true">Logic</button>
+            <button type="button" data-puzzle="math" aria-pressed="false">Arithmetic</button>
+          </div>
+          <button type="button" class="switch gd-toggle" role="switch" aria-checked="true"><span class="track"></span><span class="gd-toggle-label">Grammar on</span></button>
+          <button type="button" class="btn gd-run">Generate</button>
+        </div>
+        <div class="demo-grid">
+          <div class="pane"><h3>1. Problem</h3><p class="gd-problem"></p><p class="gd-question"></p></div>
+          <div class="pane"><h3>2. Small model writes a program</h3><div class="gd-program" aria-live="polite"></div>
+            <div class="gd-next"><span>Next-token candidates</span><span>Masked so far: <b class="gd-masked">0</b></span></div>
+            <ul class="gd-cands"></ul></div>
+          <div class="pane"><h3>3. Solver</h3><div class="gd-result" aria-live="polite"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="wrap split">
+      <h2>Papers and theses</h2>
+      <div>
+
+        <!-- ACL 2025 -->
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-grammar"/></svg></span>
+            <div>
+              <h3>Grammar-constrained decoding makes large language models better logical parsers</h3>
+              <p class="meta">ACL 2025, Industry Track</p>
+              <p class="sub">With Tanir Özçelebi and Mike Holenderski, Eindhoven University of Technology</p>
+              <p class="summary-text">If you let a language model translate a logic problem into a formal program and hand the reasoning to a theorem prover, the weak link is syntax: one misplaced bracket and the solver can't run it. I forced the model's output to follow the solver's grammar while it generates, and small models went from almost never producing runnable programs to almost always doing so.</p>
+              <p class="links"><a href="https://aclanthology.org/2025.acl-industry.34/">Read the paper</a><a href="https://github.com/federaspa/gcd-llm-logical-parsing">Code on GitHub</a></p>
+              <details class="more">
+                <summary><span class="when-closed">Read the full story</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <h4>The problem</h4>
+                  <p>LLMs look good on reasoning benchmarks like GSM8K, but their scores drop when problems are lightly perturbed, which suggests they're pattern-matching rather than reasoning. A popular fix is to split the job: the LLM acts as a parser that turns the natural-language problem into a symbolic program, and a solver such as Prover9 does the actual inference. That moves the failure point to syntax. The usual remedies are few-shot examples in the prompt, or asking the model to check and fix its own output, and neither guarantees a valid program.</p>
+
+                  <h4>The approach</h4>
+                  <p>I wrote context-free grammars for first-order logic (for FOLIO) and for arithmetic programs (for GSM-symbolic), and used grammar-constrained decoding: at every generation step, tokens that would break the grammar are masked out. The model can still choose what to say, but it can only say it in a form the solver accepts.</p>
+                  <figure>
+                    <svg class="diagram" viewBox="0 0 760 170" role="img" aria-label="Pipeline: natural-language problem goes to the LLM, which is constrained by a grammar, produces a symbolic program, which a solver turns into True, False or Unknown.">
+                      <defs>
+                        <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8A8178"/></marker>
+                        <marker id="arrowhead-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#FF6A13"/></marker>
+                      </defs>
+                      <rect class="box" x="2" y="40" width="150" height="70" rx="6"/>
+                      <text x="77" y="70" text-anchor="middle">Problem in</text><text x="77" y="88" text-anchor="middle">plain English</text>
+                      <path class="arrow" d="M152 75H196"/>
+                      <rect class="box hot" x="200" y="40" width="130" height="70" rx="6"/>
+                      <text x="265" y="80" text-anchor="middle">LLM</text>
+                      <rect class="box" x="190" y="128" width="150" height="38" rx="6" style="stroke-dasharray:4 3"/>
+                      <text x="265" y="152" text-anchor="middle" class="small">grammar masks tokens</text>
+                      <path class="arrow hot" d="M265 128V114"/>
+                      <path class="arrow" d="M330 75H374"/>
+                      <rect class="box" x="378" y="40" width="150" height="70" rx="6"/>
+                      <text x="453" y="70" text-anchor="middle">Symbolic</text><text x="453" y="88" text-anchor="middle">program</text>
+                      <path class="arrow" d="M528 75H572"/>
+                      <rect class="box" x="576" y="40" width="90" height="70" rx="6"/>
+                      <text x="621" y="70" text-anchor="middle">Solver</text><text x="621" y="88" text-anchor="middle" class="small">Prover9</text>
+                      <path class="arrow" d="M666 75H700"/>
+                      <text x="704" y="62" class="small">True</text><text x="704" y="80" class="small">False</text><text x="704" y="98" class="small">Unknown</text>
+                      <text x="2" y="20" class="small">The model only parses. The solver reasons.</text>
+                    </svg>
+                  </figure>
+
+                  <h4>What I found</h4>
+                  <p>I tested 13 instruction-tuned open models from four families (Gemma 2, Llama 3, Mistral, Qwen 2.5), from 0.5B to 27B parameters, with 0, 2 and 5 in-context examples. The chart shows the share of generated programs the solver could actually run, with no examples in the prompt.</p>
+                  <div class="chart-controls" role="group" aria-label="Dataset">
+                    <button type="button" data-ds="gsm" aria-pressed="true">GSM-symbolic (arithmetic)</button>
+                    <button type="button" data-ds="folio" aria-pressed="false">FOLIO (first-order logic)</button>
+                  </div>
+                  <div class="legend">
+                    <span><svg width="14" height="14"><circle cx="7" cy="7" r="5" fill="none" stroke="#8A8178" stroke-width="2"/></svg>Unconstrained</span>
+                    <span><svg width="14" height="14"><circle cx="7" cy="7" r="5.5" fill="#FF6A13"/></svg>Grammar-constrained</span>
+                  </div>
+                  <div class="chart" id="gcd-chart"><div class="tip"></div></div>
+                  <details class="data-table"><summary>Show the numbers</summary><div id="gcd-table"></div></details>
+                  <ul>
+                    <li>Constraints helped every model, and helped small models most. Llama 3.2 1B went from 0.00 to 0.98 executable programs on GSM-symbolic.</li>
+                    <li>In most cases, zero-shot with constraints beat unconstrained five-shot, which matters wherever expert-written examples are scarce or the prompt budget is tight.</li>
+                    <li>Constraints and examples are complementary: the best scores usually came from using both.</li>
+                    <li>For the largest models with several examples, unconstrained decoding sometimes won on accuracy. This fits recent theoretical work showing that constrained decoding biases the output distribution. My reading is that grammars steer small models toward good outputs, but once a model is good enough, the bias starts to cost more than it saves.</li>
+                    <li>A context-free grammar guarantees syntax, not meaning. Errors like inconsistent predicates still slip through, which is where I think the next step lies.</li>
+                  </ul>
+                  <h4>Tools</h4>
+                  <ul class="tags"><li>llama.cpp</li><li>GBNF grammars</li><li>GGUF models</li><li>Prover9</li><li>NLTK</li><li>Python</li></ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <!-- Greench -->
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-leaf"/></svg></span>
+            <div>
+              <h3>Greench-v1: distilling small language models for greenwashing detection</h3>
+              <p class="meta">NLP4Ecology workshop at LREC 2026</p>
+              <p class="sub">With Simona Scala, İrem Demirtaş, Alessandro Pietro Bardelli, Marilena Di Bari and Michele Filannino, Prometeia</p>
+              <p class="summary-text">A 4B-parameter model that reads ESG reports paragraph by paragraph, flags possible greenwashing and explains why. After reinforcement learning, it beat both a model eight times its size and Claude Sonnet 4.5 at spotting greenwashing. I designed the reinforcement learning reward, ran the evaluation and wrote much of the paper.</p>
+              <p class="links"><a href="https://aclanthology.org/2026.nlp4ecology-1.8/">Read the paper</a></p>
+              <details class="more">
+                <summary><span class="when-closed">Read the full story</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <h4>The problem</h4>
+                  <p>Banks and other financial institutions have to check that what companies say about sustainability matches what they do. Today that means people reading long reports by hand, which is slow, expensive and inconsistent. The goal was a model small and fast enough to screen large volumes of text, that gives auditors a reason with each flag rather than a bare score.</p>
+
+                  <h4>What it produces</h4>
+                  <p>For each paragraph, Greench-v1 returns one of three labels (greenwashing alert, no greenwashing, not relevant) and a short justification grounded in that paragraph. Here's an example from a real ESG report:</p>
+                  <dl class="sample">
+                    <dt>Paragraph</dt>
+                    <dd>In 2022, Mango joined the network of the Ellen MacArthur Foundation, an international charity dedicated to promoting the circular economy…</dd>
+                    <dt>Label</dt>
+                    <dd class="flag">Possible greenwashing</dd>
+                    <dt>Justification</dt>
+                    <dd>A general statement about joining a foundation, with no concrete actions or measurable outcomes behind it.</dd>
+                  </dl>
+
+                  <h4>How we trained it</h4>
+                  <p>We built a dataset of about 2,000 paragraphs adapted from the ClimateBERT corpus. To fix the class imbalance, we paraphrased rare positive examples, and GPT-4o wrote evidence-based justifications. Then we compared four ways of training Qwen3-4B:</p>
+                  <figure>
+                    <svg class="diagram" viewBox="0 0 760 250" role="img" aria-label="Qwen3-4B is trained four ways: hard distillation, soft distillation from a Qwen3-14B teacher, GRPO with an exact-match reward, and hard distillation followed by GRPO. All four are evaluated.">
+                      <rect class="box" x="2" y="100" width="150" height="56" rx="6"/>
+                      <text x="77" y="124" text-anchor="middle">~2,000 labelled</text><text x="77" y="142" text-anchor="middle">paragraphs</text>
+                      <path class="arrow" d="M152 128H186"/>
+                      <rect class="box" x="190" y="100" width="110" height="56" rx="6"/>
+                      <text x="245" y="133" text-anchor="middle">Qwen3-4B</text>
+                      <path class="arrow" d="M300 128C330 128 330 26 356 26"/>
+                      <path class="arrow" d="M300 128C330 128 330 88 356 88"/>
+                      <path class="arrow hot" d="M300 128C330 128 330 150 356 150"/>
+                      <path class="arrow" d="M300 128C330 128 330 212 356 212"/>
+                      <rect class="box" x="360" y="4" width="240" height="44" rx="6"/><text x="480" y="31" text-anchor="middle">Hard distillation (fine-tuning)</text>
+                      <rect class="box" x="360" y="66" width="240" height="44" rx="6"/><text x="480" y="93" text-anchor="middle">Soft distillation from Qwen3-14B</text>
+                      <rect class="box hot" x="360" y="128" width="240" height="44" rx="6"/><text x="480" y="155" text-anchor="middle">GRPO, exact-match reward</text>
+                      <rect class="box" x="360" y="190" width="240" height="44" rx="6"/><text x="480" y="217" text-anchor="middle">Hard distillation, then GRPO</text>
+                      <path class="arrow" d="M600 26C630 26 630 128 656 128"/>
+                      <path class="arrow" d="M600 88C630 88 630 128 656 128"/>
+                      <path class="arrow hot" d="M600 150C630 150 630 128 656 128"/>
+                      <path class="arrow" d="M600 212C630 212 630 128 656 128"/>
+                      <rect class="box" x="660" y="104" width="96" height="48" rx="6"/><text x="708" y="133" text-anchor="middle">Evaluate</text>
+                    </svg>
+                    <figcaption>The highlighted path is the one I worked on.</figcaption>
+                  </figure>
+
+                  <h4>My part: reward design and evaluation</h4>
+                  <p>For GRPO, the model samples 10 candidate answers per step and gets pushed toward the ones that score higher. We tried richer rewards, but getting one that was stable was the hard part. The version that worked was deliberately blunt: +1 if the label exactly matches the ground truth, 0 otherwise. I also built the evaluation: weighted F1 for the labels and BERTScore F1 for how close the justifications are to the reference ones.</p>
+
+                  <h4>Results</h4>
+                  <p>Weighted F1 on the greenwashing alert label:</p>
+                  <div class="chart" id="greench-chart"><div class="tip"></div></div>
+                  <details class="data-table"><summary>Show the numbers</summary><div id="greench-table"></div></details>
+                  <ul>
+                    <li>GRPO scored highest at 0.73, a 49% relative gain over the best untuned baseline. Soft distillation reached 0.67 and also gave the best justifications.</li>
+                    <li>Model size didn't help on its own: untuned Qwen3-32B did no better than untuned Qwen3-4B. Claude Sonnet 4.5 wrote good justifications but flagged too many paragraphs as greenwashing.</li>
+                    <li>The exact-match reward sharpened the labels but didn't improve the justifications. A reward that also scores the rationale is the obvious next step.</li>
+                    <li>The whole 400-paragraph evaluation set runs in under five minutes on a single A100.</li>
+                  </ul>
+                  <h4>Tools</h4>
+                  <ul class="tags"><li>Qwen3</li><li>GRPO</li><li>Knowledge distillation</li><li>Hugging Face</li><li>PyTorch</li><li>BERTScore</li></ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <!-- Survey -->
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-book"/></svg></span>
+            <div>
+              <h3>Constrained generation in large language models: methods, applications and future directions</h3>
+              <p class="meta">Survey paper, in revision</p>
+              <p class="sub">Started at Eindhoven University of Technology</p>
+              <span class="status">Submitted for review. Reviewers liked it and asked for more work before acceptance.</span>
+              <p class="summary-text">An overview of the ways to make an LLM's output follow rules: from keyword constraints, through finite automata and context-free grammars, to probabilistic and semantic methods.</p>
+              <details class="more">
+                <summary><span class="when-closed">What it covers</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <ul>
+                    <li><strong>Constraint types:</strong> lexical (include these words), syntactic (follow this grammar) and semantic (be valid by these rules).</li>
+                    <li><strong>Where constraints are applied:</strong> in the prompt, at decoding time (from grid beam search to grammar masks and PICARD), at sampling time (probabilistic and Monte Carlo methods), through iterative generate-check-refine loops, or inside the transformer layers.</li>
+                    <li><strong>Applications:</strong> code and query languages, domain-specific languages, semantic parsing and information extraction, scientific notation and constrained machine translation, plus the benchmarks used for each.</li>
+                    <li><strong>Open problems:</strong> computational overhead, losing meaning while enforcing syntax, tokenizers that split text differently from the grammar, and the fact that many of the best models are only available through APIs that don't expose token probabilities.</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <!-- MSc thesis -->
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-cap"/></svg></span>
+            <div>
+              <h3>Grammar-constrained large language models for logical reasoning</h3>
+              <p class="meta">MSc thesis, 2024, graded 9/10</p>
+              <p class="sub">Eindhoven University of Technology and Université Côte d'Azur</p>
+              <p class="summary-text">Where the ACL paper started. I combined grammar constraints with self-verification: when a generated logic program failed, open models repaired it under a grammar that was updated as the program changed.</p>
+              <p class="links"><a href="https://research.tue.nl/p/en/studenttheses/grammar-constrained-large-language-models-for-logical-reasoning">Read the thesis</a></p>
+              <details class="more">
+                <summary><span class="when-closed">Read the full story</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <p>The method, which I called GCLLM, raised the share of executable programs by up to 21% on FOLIO and LogicNLI. It also produced a negative result: better syntax didn't translate into better answers, and chain-of-thought prompting stayed the most reliable way to get semantically correct ones.</p>
+                  <p>I also tested whether models fix syntax better after fine-tuning on broken formulas. To do that, I built FOLIO-Refinement, a synthetic dataset made by injecting syntax errors into FOLIO's formulas. I added a fallback that lets the LLM answer directly when repair fails, too. That negative result is why the ACL paper drops self-repair and constrains the first generation directly.</p>
+                  <ul class="tags"><li>FOLIO</li><li>LogicNLI</li><li>Prover9</li><li>Self-verification</li><li>Fine-tuning</li></ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <!-- BSc thesis -->
+        <article class="entry">
+          <div class="entry-head">
+            <span class="badge"><svg class="icon"><use href="#i-chart"/></svg></span>
+            <div>
+              <h3>Sentiment analysis for cryptocurrency market signalling</h3>
+              <p class="meta">BSc thesis, 2022</p>
+              <p class="sub">Bocconi University, supervised by Prof. Dirk Hovy</p>
+              <p class="summary-text">My first real ML project, from before the LLM era. Can the mood of news, Reddit, Telegram and Twitter predict Bitcoin, Ethereum and Ripple prices?</p>
+              <p class="links"><a href="bsc-thesis.pdf">Read the thesis (PDF)</a></p>
+              <details class="more">
+                <summary><span class="when-closed">Read the full story</span><span class="when-open">Close</span></summary>
+                <div class="story">
+                  <p>The data was 12 GB of prices and posts collected every five minutes over 2019. I cleaned and split the text, scored each piece with VADER sentiment, then looked at lagged cross-correlations, regressions and simple trading signals.</p>
+                  <p>Sentiment explained very little: the average R² was about 0.05. The exception was Bitcoin with Telegram, at about 0.25. My explanation is that Telegram crypto groups are both specialised and near real-time, while Twitter mixed enthusiasts and newcomers into noise. Looking back, the more interesting lesson was the one I wrote in the conclusion: I chose simple, explainable models on purpose, even if a deep network might score higher. I still care about that trade-off.</p>
+                  <ul class="tags"><li>Python</li><li>pandas</li><li>VADER</li><li>Regression</li><li>Time series</li></ul>
+                </div>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <p class="links" style="margin-top:2rem"><a href="https://scholar.google.com/citations?user=BqpoWDIAAAAJ&amp;hl=en">All publications on Google Scholar</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Federico Raspanti, Milan. <a href="mailto:federico.raspanti2000@gmail.com">federico.raspanti2000@gmail.com</a></span>
+    <span id="foot-note">The network behind this page has 0 trainable parameters. It's still learning from you.</span>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=4"></script>
+<script src="assets/charts.js?v=4"></script>
+<script src="assets/gcd-demo.js?v=4"></script>
+</body>
+</html>
