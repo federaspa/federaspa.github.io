@@ -342,3 +342,21 @@
   /* footer stripe */
   footer { border-top: 0; box-shadow: 0 -1px 0 var(--line); position: relative; }
   footer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: linear-gradient(90deg, var(--c-research), var(--c-work), var(--c-homelab), var(--c-life)); opacity: .7; }
+
+  /* ---------- contact form ---------- */
+  .contact-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 3rem 4rem; align-items: start; }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: minmax(0, 1fr); } }
+  .contact-grid .big { font-size: clamp(1.3rem, 2.15vw, 2.1rem); word-break: normal; overflow-wrap: anywhere; }
+  .contact-form { display: grid; gap: 1rem; padding: clamp(1.25rem, 3vw, 2rem); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  .contact-form h3 { font-size: 1.35rem; }
+  .contact-form label { display: grid; gap: .35rem; font-size: .95rem; color: var(--muted); }
+  .contact-form input, .contact-form textarea { font: inherit; font-size: 1rem; color: var(--ink); background: #000; border: 1px solid var(--line); border-radius: 6px; padding: .65rem .8rem; width: 100%; }
+  .contact-form textarea { resize: vertical; min-height: 8rem; }
+  .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,106,19,.18); }
+  .contact-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .contact-form .btn { justify-self: start; }
+  .form-status { min-height: 1.5em; font-size: .95rem; color: var(--muted); }
+  .form-status.err { color: var(--ink); }
+  .form-status.ok { color: var(--orange); font-weight: 600; }
+  .form-done { display: grid; gap: .5rem; }
+  .form-done h3 { color: var(--orange); }

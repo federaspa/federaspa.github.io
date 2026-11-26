@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=5">
+<link rel="stylesheet" href="assets/site.css?v=6">
 </head>
 <body class="p-home">
 <canvas id="net" aria-hidden="true"></canvas>
@@ -106,7 +106,8 @@
 
   <!-- CONTACT -->
   <section class="contact" id="contact">
-    <div class="wrap">
+    <div class="wrap contact-grid">
+      <div>
       <p class="intro">Hiring a research engineer or applied LLM engineer in Milan, Dublin or remote? Write to me.</p>
       <a class="big" href="mailto:federico.raspanti2000@gmail.com">federico.raspanti2000@gmail.com</a>
       <ul>
@@ -115,6 +116,17 @@
         <li><a href="https://scholar.google.com/citations?user=BqpoWDIAAAAJ&amp;hl=en"><svg class="icon"><use href="#i-cap"/></svg>Google Scholar</a></li>
         <li><a href="CV.pdf"><svg class="icon"><use href="#i-file"/></svg>Download CV</a></li>
       </ul>
+      </div>
+      <form class="contact-form" id="contact-form" action="/api/contact" method="post" novalidate>
+        <h3>Send me a message</h3>
+        <label>Name<input type="text" name="name" autocomplete="name" maxlength="100" required></label>
+        <label>Email<input type="email" name="email" autocomplete="email" maxlength="200" required></label>
+        <label>Message<textarea name="message" rows="6" maxlength="5000" required></textarea></label>
+        <label class="hp" aria-hidden="true">Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAGUO34W0cjgylPcX" data-theme="dark"></div>
+        <button type="submit" class="btn">Send message</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 </main>
@@ -127,5 +139,7 @@
 </footer>
 
 <script src="assets/site.js?v=5"></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="assets/contact.js?v=6"></script>
 </body>
 </html>
